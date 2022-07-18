@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!--  meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,95 +9,136 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="style.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Hello, world!</title>
-  </head>
-  <body>
-        <form class="container" id="ticketingForm" onsubmit="validateForm()" method="POST">
-            <div class="row g3">
-                <div class="col-md-6 mb-3" id="preference">
-            <label class="form-label d-block" >Select Preference</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" id="oneway" type="radio" name="tripway"  />
-                    <label class="form-check-label" for="oneway">One way</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" id="roundtrip" type="radio" name="tripway"  />
-                    <label class="form-check-label" for="roundtrip">Round Trip</label>
-                </div>
-                <div class="invalid-feedback">One option is required.</div>
+</head>
 
-                </div></div>
-            <div class="row g3">
+<body>
+    <form class="container" id="ticketingForm" onsubmit="validateForm()" method="POST">
+        
+        <div class="row g3 mb-10">
+            <div class="p-5 text-center bg-image mb-10" style="
+              background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+              height: 200px;
+            ">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-white">
+                            <h1 class="mb-3">Simple Ticketing App</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <div class="row g3 mt-3">
+        <div class="col-md-6 mb-3" id="preference">
+            <label class="form-label d-block mt-10">Select Preference</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" id="oneway" type="radio" name="tripway" />
+                <label class="form-check-label" for="oneway">One way</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" id="roundtrip" type="radio" name="tripway" />
+                <label class="form-check-label" for="roundtrip">Round Trip</label>
+            </div>
+            <div class="invalid-feedback">One option is required.</div>
+
+        </div>
+        </div>
+        <div class="row g3">
             <div class="col-md-6 mb-3 ">
                 <label class="form-label" for="departure">Departure</label>
-                <input class="form-control" id="departure" type="text" placeholder="Departure"  />
+                <input class="form-control" id="departure" type="text" placeholder="Departure" />
                 <div class="invalid-feedback">Departure is required.</div>
             </div>
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="arrival">Arrival</label>
-                <input class="form-control" id="arrival" type="text" placeholder="Arrival"  />
+                <input class="form-control" id="arrival" type="text" placeholder="Arrival" />
                 <div class="invalid-feedback">Arrival is required.</div>
             </div>
         </div>
         <div class="row g3">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="travelDate">Travel Date</label>
-                <input class="form-control" id="travelDate" type="date" placeholder="Travel Date"  />
+                <input class="form-control" id="travelDate" type="date" placeholder="Travel Date" />
                 <div class="invalid-feedback">Travel Date is required.</div>
             </div>
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="returnDate">Return Date</label>
-                <input class="form-control" id="returnDate" type="date" placeholder="Return Date"  />
+                <input class="form-control" id="returnDate" type="date" placeholder="Return Date" />
                 <div class="invalid-feedback">Return Date is required for round trip.</div>
             </div>
+        </div>
+
+
+        <div class="container passenger">
+            <div class="mb-3">
+                <label class="form-label" for="passenger1">First Passenger Name</label>
+                <input class="form-control" id="passenger1" type="text" placeholder="First Passenger Name" />
+                <div class="invalid-feedback">Full Name should be more than 5 characters</div>
             </div>
-            
-            
-<div class="container passenger">
-    <div class="mb-3">
-        <label class="form-label" for="passenger1">First Passenger Name</label>
-        <input class="form-control" id="passenger1" type="text" placeholder="First Passenger Name"  />
-        <div class="invalid-feedback">Full Name should be more than 5  characters</div>
-    </div>
-    <div class="mb-3" >
-        <div class="col-md-6 mb-3" id="gender1"></div>
-        <label class="form-label d-block">Gender</label>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" id="male1" type="radio" name="gender1"  />
-            <label class="form-check-label" for="male1">Male</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" id="female1" type="radio" name="gender1"  />
-            <label class="form-check-label" for="female1">Female</label>
-        </div>
-        <div class="invalid-feedback">Please enter a valid gender</div>
-</div>
-    </div>
-</div>     
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="mb-3" id="gender1"></div>
+                    <label class="form-label d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="male1" type="radio" name="gender1" />
+                        <label class="form-check-label" for="male1">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="female1" type="radio" name="gender1" />
+                        <label class="form-check-label" for="female1">Female</label>
+                    </div>
+                    <div class="invalid-feedback">Please enter a valid gender</div>
+                </div>
+                <div class="col-4  mb-3">
+                    <label class="form-label" for="age1">Age</label>
+                    <input class="form-control" id="age1" type="text" placeholder="Age" />
+                    <div class="invalid-feedback">Age should be a number</div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12 mb-3 text-right">
+                    <button type="submit" class="btn btn-outline-primary" name="addPassenger" id="addPassenger"
+                        value="addPassenger">Add Passenger</button>
+                </div>
+            </div> -->
 
-<div class="container passenger">
-    <div class="mb-3">
-        <label class="form-label" for="passenger2">second Passenger Name</label>
-        <input class="form-control" id="passenger2" type="text" placeholder="Second Passenger Name"  />
-        <div class="invalid-feedback">Full Name is .</div>
-    </div>
-    <div class="mb-3" id="gender2">
-        <label class="form-label d-block">Gender</label>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" id="male2" type="radio" name="gender2"  />
-            <label class="form-check-label" for="male2">Male</label>
         </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" id="female2" type="radio" name="gender2"  />
-            <label class="form-check-label" for="female2">Female</label>
         </div>
-        <div class="invalid-feedback">Please enter a valid gender</div>
+        </div>
 
-    </div>
-</div>   
+        <div class="container passenger">
+            <div class="mb-3">
+                <label class="form-label" for="passenger2">second Passenger Name</label>
+                <input class="form-control" id="passenger2" type="text" placeholder="Second Passenger Name" />
+                <div class="invalid-feedback">Full Name should be more than 5 characters
+                </div>
+            </div>
+            <div class="row">
 
-<!-- <div class="mb-3">
+                <div class="col-md-4 mb-3" id="gender2">
+                    <label class="form-label d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="male2" type="radio" name="gender2" />
+                        <label class="form-check-label" for="male2">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="female2" type="radio" name="gender2" />
+                        <label class="form-check-label" for="female2">Female</label>
+                    </div>
+                    <div class="invalid-feedback">Please enter a valid gender</div>
+
+                </div>
+                <div class="col-4  mb-3">
+                    <label class="form-label" for="age2">Age</label>
+                    <input class="form-control" id="age2" type="text" placeholder="Age" />
+                    <div class="invalid-feedback">Age should be a number</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="mb-3">
                 <label class="form-label d-block">Food Type</label>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" id="vegan" type="radio" name="newField18"  />
@@ -138,26 +180,26 @@
                     <option value="Pay at the airport">Pay at the airport</option>
                 </select>
             </div> -->
-            <div class="mb-3">
-                <label class="form-label" for="emailAddress">Email Address</label>
-                <input class="form-control" id="emailAddress" type="text" placeholder="Email Address"  />
-                <div class="invalid-feedback">Email Address Email is required and should be valid.</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="mobilePhone">Mobile Phone</label>
-                <input class="form-control" id="mobilePhone" type="text" placeholder="Mobile Phone"  />
-                <div class="invalid-feedback">Mobile Phone is required and should only include numbers and formatting</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="address">Address</label>
-                <textarea class="form-control" id="address" type="text" placeholder="Address" style="height: 10rem;" "></textarea>
-                <div class="invalid-feedback">Address is .</div>
+        <div class="mb-3">
+            <label class="form-label" for="emailAddress">Email Address</label>
+            <input class="form-control" id="emailAddress" type="text" placeholder="Email Address" />
+            <div class="invalid-feedback">Email Address Email is required and should be valid.</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="mobilePhone">Mobile Phone</label>
+            <input class="form-control" id="mobilePhone" type="text" placeholder="Mobile Phone" />
+            <div class="invalid-feedback">Mobile Phone is required and should only include numbers and formatting</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="address">Address</label>
+            <textarea class="form-control" id="address" type="text" placeholder="Address" style="height: 10rem;" "></textarea>
+                <div class=" invalid-feedback">Address is .</div>
             </div>
             <div class="row g3">
-                <div class="col-md-12 mb-3">
+                <div class="col-md-12 mb-3 text-center">
                     <button type="submit" class="btn btn-primary" name="submit" id="submitform" value="Submit">Submit</button>
                 </div></div>
-           
+     
         </form>
     </div>
 
