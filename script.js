@@ -1,10 +1,12 @@
-let errors=0;
+let errors = 0;
 
 function validateForm() {
     const ticketingForm = document.getElementById('ticketingForm')
+    const addPassenger = document.getElementById('addPassenger')
     let emailValidation = /^[a-z0-9._%+-]{1,64}@[a-z0-9.-]{1,252}\.[a-z]{2,10}$/i;
     let phoneValidation = /^[0-9+ ()]{8,16}$/i;
     let ageValidation = /^[0-9]{1,2}$/i;
+
 
     let onewayElement = document.querySelector('#oneway')
     let roundtripElement = document.querySelector('#roundtrip')
@@ -16,13 +18,13 @@ function validateForm() {
     let departure = departureElement.value
     let departureTemperatureElement = document.querySelector('#departureTemperature')
     validateError(departure, departureElement)
-    if(departure) getWeather(departure, departureTemperatureElement)
+    if (departure) getWeather(departure, departureTemperatureElement)
 
     let arrivalElement = document.querySelector('#arrival')
     let arrival = arrivalElement.value
     let arrivalTemperatureElement = document.querySelector('#arrivalTemperature')
     validateError(arrival, arrivalElement)
-    if(arrival) getWeather(arrival, arrivalTemperatureElement)
+    if (arrival) getWeather(arrival, arrivalTemperatureElement)
 
 
 
@@ -33,10 +35,8 @@ function validateForm() {
     let returnElement = document.querySelector('#returnDate')
     let returnDate = returnElement.value
     if (awayIsChecked && roundtripElement.checked) {
-        console.log(roundtripElement.checked)
         validateError(returnDate, returnElement)
     } else {
-        console.log('I am there')
         validateError(true, returnElement)
     }
 
@@ -58,18 +58,19 @@ function validateForm() {
 
     let passenger2Element = document.querySelector('#passenger2')
     let passenger2 = passenger2Element.value
-    if (passenger2){
-     validateError((passenger2.length > 5), passenger2Element)
+    if (passenger2) {
+        validateError((passenger2.length > 5), passenger2Element)
 
 
-    let male2Element = document.querySelector('#male2')
-    let female2Element = document.querySelector('#female2')
-    let gender2 = document.querySelector('#gender2')
-    validateError((male2Element.checked || female2Element.checked), gender2)
+        let male2Element = document.querySelector('#male2')
+        let female2Element = document.querySelector('#female2')
+        let gender2 = document.querySelector('#gender2')
+        validateError((male2Element.checked || female2Element.checked), gender2)
 
-    let age2Element = document.querySelector('#age2')
-    let age2 = age2Element.value
-    validateError(ageValidation.test(age2), age2Element)}
+        let age2Element = document.querySelector('#age2')
+        let age2 = age2Element.value
+        validateError(ageValidation.test(age2), age2Element)
+    }
 
     let emailElement = document.querySelector('#emailAddress')
     let email = emailElement.value
@@ -87,7 +88,16 @@ ticketingForm.addEventListener('submit', (e) => {
     errors = 0;
     e.preventDefault()
 })
+addPassenger.addEventListener('click', (e) => {
+    // console.log('your ticket request was successfully submitted')
+    addPassenger.style.display = 'none'
+    const secondPassenger = document.getElementById('secondPassenger')
+    console.log(secondPassenger)
 
+    secondPassenger.style.display = 'block'
+
+
+})
 function validateError(result, element) {
 
     result ? valid(element) : invalid(element)
@@ -100,22 +110,20 @@ function valid(element) {
     element.classList.remove("is-invalid");
 }
 
-async function  getWeather(city, htmlElement)  {
+async function getWeather(city, htmlElement) {
     const url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
     const contentType = 'contentType=json'
     const apiKey = 'H2AABUB7ZWESLBJQTCRC6DW9Q'
     const endpoint = `${url}${city}?key=${apiKey}&unitGroup=metric&${contentType}`
 
-        try {
-          const response = await fetch(endpoint, {cache: 'no-cache'});
-          if(response.ok){
+    try {
+        const response = await fetch(endpoint, { cache: 'no-cache' });
+        if (response.ok) {
             const jsonResponse = await response.json();
-            console.log(jsonResponse.currentConditions.temp);
             htmlElement.innerHTML = `Temp is ${jsonResponse.currentConditions.temp.toString()}°C<br><div class="row"><div class="text-center"><img src="icons/${jsonResponse.currentConditions.icon.toString()}.svg" class="w-25 ml-3" alt="${jsonResponse.currentConditions.icon.toString()}"></div>
             </div>`
-          }
-        } catch (error) {
-          console.log(error);
         }
+    } catch (error) {
+    }
 
 }
