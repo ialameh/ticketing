@@ -1,0 +1,22 @@
+/* Error Handling */
+.invalid-feedback {
+    display: none;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+    flex: 100%;
+  }
+  .is-invalid ~ .invalid-feedback {
+    display: block;
+  }
+  .is-invalid,
+  .is-invalid ~ .form-check-label {
+    border-color: #dc3545;
+    color: #dc3545;
+  }
+
+  .passenger {
+    border: 1px solid;
+    margin: 10px 10px 10px 10px;
+    padding; : 10px 10px 10px 10px;
+  }
