@@ -33,3 +33,11 @@
   color: blue;
   font-weight: bold;
 }
+
+#secondPassenger {
+  display: none;
+}
+
+.label {
+  font-weight: bold;
+}
