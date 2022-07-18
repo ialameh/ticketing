@@ -14,7 +14,17 @@ function validateForm() {
 
     let departureElement = document.querySelector('#departure')
     let departure = departureElement.value
+    let departureTemperatureElement = document.querySelector('#departureTemperature')
     validateError(departure, departureElement)
+    if(departure) getWeather(departure, departureTemperatureElement)
+
+    let arrivalElement = document.querySelector('#arrival')
+    let arrival = arrivalElement.value
+    let arrivalTemperatureElement = document.querySelector('#arrivalTemperature')
+    validateError(arrival, arrivalElement)
+    if(arrival) getWeather(arrival, arrivalTemperatureElement)
+
+
 
     let travelElement = document.querySelector('#travelDate')
     let travelDate = travelElement.value
@@ -31,9 +41,6 @@ function validateForm() {
     }
 
 
-    let arrivalElement = document.querySelector('#arrival')
-    let arrival = arrivalElement.value
-    validateError(arrival, arrivalElement)
 
     let passenger1Element = document.querySelector('#passenger1')
     let passenger1 = passenger1Element.value
@@ -91,4 +98,24 @@ function invalid(element) {
 }
 function valid(element) {
     element.classList.remove("is-invalid");
+}
+
+async function  getWeather(city, htmlElement)  {
+    const url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
+    const contentType = 'contentType=json'
+    const apiKey = 'H2AABUB7ZWESLBJQTCRC6DW9Q'
+    const endpoint = `${url}${city}?key=${apiKey}&unitGroup=metric&${contentType}`
+
+        try {
+          const response = await fetch(endpoint, {cache: 'no-cache'});
+          if(response.ok){
+            const jsonResponse = await response.json();
+            console.log(jsonResponse.currentConditions.temp);
+            htmlElement.innerHTML = `Temp is ${jsonResponse.currentConditions.temp.toString()}°C<br><div class="row"><div class="text-center"><img src="icons/${jsonResponse.currentConditions.icon.toString()}.svg" class="w-25 ml-3" alt="${jsonResponse.currentConditions.icon.toString()}"></div>
+            </div>`
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
 }
