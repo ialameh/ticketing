@@ -8,11 +8,26 @@ function validateForm() {
     let onewayElement = document.querySelector('#oneway')
     let roundtripElement = document.querySelector('#roundtrip')
     let preferenceElement = document.querySelector('#preference')
-    validateError((onewayElement.checked || roundtripElement.checked), preferenceElement)
+    let awayIsChecked = (onewayElement.checked || roundtripElement.checked)
+    validateError(awayIsChecked, preferenceElement)
     
     let departureElement = document.querySelector('#departure')
     let departure = departureElement.value
     validateError(departure, departureElement)
+
+    let travelElement = document.querySelector('#travelDate')
+    let travelDate = travelElement.value
+    validateError(travelDate, travelElement)
+
+    let returnElement = document.querySelector('#returnDate')
+    let returnDate = returnElement.value
+    if(awayIsChecked && roundtripElement.checked) {
+        console.log('I am here')
+        validateError(returnDate, returnElement )
+    } else {
+        validateError(false, returnElement )
+    }
+
 
     let arrivalElement = document.querySelector('#arrival')
     let arrival = arrivalElement.value
