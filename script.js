@@ -1,4 +1,7 @@
 let errors = 0;
+let awayIsChecked = false
+
+// const allElements = document.querySelectorAll()
 const ticketingForm = document.getElementById('ticketingForm')
 const addPassenger = document.getElementById('addPassenger')
 const saveAPI = document.getElementById('saveAPI')
@@ -10,35 +13,41 @@ const returnElement = document.querySelector('#returnDate')
 const roundtripElement = document.querySelector('#roundtrip')
 const preferenceElement = document.querySelector('#preference')
 const onewayElement = document.querySelector('#oneway')
-
+const departureElement = document.querySelector('#departure')
+const departureTemperatureElement = document.querySelector('#departureTemperature')
+const arrivalElement = document.querySelector('#arrival')
+const arrivalTemperatureElement = document.querySelector('#arrivalTemperature')
+const travelElement = document.querySelector('#travelDate')
+const passenger1Element = document.querySelector('#passenger1')
+const male1Element = document.querySelector('#male1')
+const female1Element = document.querySelector('#female1')
+const age1Element = document.querySelector('#age1')
+const passenger2Element = document.querySelector('#passenger2')
+const male2Element = document.querySelector('#male2')
+const female2Element = document.querySelector('#female2')
+const age2Element = document.querySelector('#age2')
+const emailElement = document.querySelector('#emailAddress')
+const mobileElement = document.querySelector('#mobilePhone')
+const emailValidation = /^[a-z0-9._%+-]{1,64}@[a-z0-9.-]{1,252}\.[a-z]{2,10}$/i;
+const phoneValidation = /^[0-9+ ()]{8,16}$/i;
+const ageValidation = /^[0-9]{1,2}$/i;
 
 function validateForm() {
 
-    let emailValidation = /^[a-z0-9._%+-]{1,64}@[a-z0-9.-]{1,252}\.[a-z]{2,10}$/i;
-    let phoneValidation = /^[0-9+ ()]{8,16}$/i;
-    let ageValidation = /^[0-9]{1,2}$/i;
+    awayIsChecked = (onewayElement.checked || roundtripElement.checked)
 
-    // validateError(apiKey, apiKeyElement)
-    // if (apiKey) afterAPIElement.style.display = 'block'
-
-    let awayIsChecked = (onewayElement.checked || roundtripElement.checked)
     validateError(awayIsChecked, preferenceElement)
 
-    let departureElement = document.querySelector('#departure')
     let departure = departureElement.value
-    let departureTemperatureElement = document.querySelector('#departureTemperature')
     validateError(departure, departureElement)
-    if (departure && apiKeyElement.value !== 'NONE' ) getWeather(departure, departureTemperatureElement)
+    if (departure && apiKeyElement.value !== 'NONE') getWeather(departure, departureTemperatureElement)
 
-    let arrivalElement = document.querySelector('#arrival')
     let arrival = arrivalElement.value
-    let arrivalTemperatureElement = document.querySelector('#arrivalTemperature')
     validateError(arrival, arrivalElement)
-    if (arrival && apiKeyElement.value !== 'NONE' ) getWeather(arrival, arrivalTemperatureElement)
+    if (arrival && apiKeyElement.value !== 'NONE') getWeather(arrival, arrivalTemperatureElement)
 
 
 
-    let travelElement = document.querySelector('#travelDate')
     let travelDate = travelElement.value
     validateError(travelDate, travelElement)
 
@@ -51,41 +60,31 @@ function validateForm() {
 
 
 
-    let passenger1Element = document.querySelector('#passenger1')
     let passenger1 = passenger1Element.value
     validateError((passenger1.length > 5), passenger1Element)
 
 
-    let male1Element = document.querySelector('#male1')
-    let female1Element = document.querySelector('#female1')
+
     let gender1 = document.querySelector('#gender1')
     validateError((male1Element.checked || female1Element.checked), gender1)
 
-    let age1Element = document.querySelector('#age1')
     let age1 = age1Element.value
     validateError(ageValidation.test(age1), age1Element)
 
-    let passenger2Element = document.querySelector('#passenger2')
     let passenger2 = passenger2Element.value
     if (passenger2) {
         validateError((passenger2.length > 5), passenger2Element)
 
 
-        let male2Element = document.querySelector('#male2')
-        let female2Element = document.querySelector('#female2')
         let gender2 = document.querySelector('#gender2')
         validateError((male2Element.checked || female2Element.checked), gender2)
 
-        let age2Element = document.querySelector('#age2')
         let age2 = age2Element.value
         validateError(ageValidation.test(age2), age2Element)
     }
 
-    let emailElement = document.querySelector('#emailAddress')
     let email = emailElement.value
     validateError(emailValidation.test(email), emailElement)
-
-    let mobileElement = document.querySelector('#mobilePhone')
     let mobile = mobileElement.value
     validateError(phoneValidation.test(mobile), mobileElement)
 
@@ -98,36 +97,36 @@ ticketingForm.addEventListener('submit', (e) => {
     e.preventDefault()
 })
 addPassenger.addEventListener('click', (e) => {
-    // console.log('your ticket request was successfully submitted')
     addPassenger.style.display = 'none'
     const secondPassenger = document.getElementById('secondPassenger')
-    console.log(secondPassenger)
 
     secondPassenger.style.display = 'block'
 
 
 })
 
- saveAPI.addEventListener('click', async (e)  =>  {
-    // console.log('your ticket request was successfully submitted')
-    // addPassenger.style.display = 'none'
+saveAPI.addEventListener('click', async (e) => {
+
     const apiKeyValid = await apikeyIsValid();
     if (apiKeyValid) {
         afterAPIElement.style.display = 'block'
     }
 })
 
-withoutWeather.addEventListener('click', (e)  =>  {
+withoutWeather.addEventListener('click', (e) => {
     apiKeyElement.value = 'NONE'
     apiBlockElement.style.display = 'none'
     afterAPIElement.style.display = 'block'
 })
-roundtripElement.addEventListener('click', (e)  =>  {
-validateForm()
-})
-onewayElement.addEventListener('click', (e)  =>  {
+roundtripElement.addEventListener('click', (e) => {
     validateForm()
-    })
+})
+onewayElement.addEventListener('click', (e) => {
+    validateForm()
+})
+// allElements.addEventListener('touchstart', (e) => {
+//     validateForm()
+// })
 function validateError(result, element) {
 
     result ? valid(element) : invalid(element)
@@ -167,7 +166,6 @@ async function apikeyIsValid() {
 
     try {
         const response = await fetch(endpoint);
-        console.log(response.ok)
         if (response.ok) {
             apiBlockElement.style.display = 'none'
             afterAPIElement.style.display = 'block'
@@ -175,7 +173,6 @@ async function apikeyIsValid() {
             validateError(false, apiKeyElement)
         }
     } catch (error) {
-        console.log('what an error')
         console.log(error.message)
     }
 
