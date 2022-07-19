@@ -1,12 +1,18 @@
 let errors = 0;
-
+const ticketingForm = document.getElementById('ticketingForm')
+const addPassenger = document.getElementById('addPassenger')
+const saveAPI = document.getElementById('saveAPI')
+const apiKeyElement = document.querySelector('#api')
+const afterAPIElement = document.getElementById('afterAPI')
+const apiBlockElement = document.querySelector('#apiBlock')
 function validateForm() {
-    const ticketingForm = document.getElementById('ticketingForm')
-    const addPassenger = document.getElementById('addPassenger')
+
     let emailValidation = /^[a-z0-9._%+-]{1,64}@[a-z0-9.-]{1,252}\.[a-z]{2,10}$/i;
     let phoneValidation = /^[0-9+ ()]{8,16}$/i;
     let ageValidation = /^[0-9]{1,2}$/i;
 
+    // validateError(apiKey, apiKeyElement)
+    // if (apiKey) afterAPIElement.style.display = 'block'
 
     let onewayElement = document.querySelector('#oneway')
     let roundtripElement = document.querySelector('#roundtrip')
@@ -98,6 +104,17 @@ addPassenger.addEventListener('click', (e) => {
 
 
 })
+
+ saveAPI.addEventListener('click', async (e)  =>  {
+    // console.log('your ticket request was successfully submitted')
+    // addPassenger.style.display = 'none'
+    const apiKeyValid = await apikeyIsValid();
+    if (apiKeyValid) {
+        afterAPIElement.style.display = 'block'
+    }
+})
+
+
 function validateError(result, element) {
 
     result ? valid(element) : invalid(element)
@@ -113,7 +130,7 @@ function valid(element) {
 async function getWeather(city, htmlElement) {
     const url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
     const contentType = 'contentType=json'
-    const apiKey = 'H2AABUB7ZWESLBJQTCRC6DW9Q'
+    const apiKey = apiKeyElement.value;
     const endpoint = `${url}${city}?key=${apiKey}&unitGroup=metric&${contentType}`
 
     try {
@@ -124,6 +141,29 @@ async function getWeather(city, htmlElement) {
             </div>`
         }
     } catch (error) {
+    }
+
+}
+
+async function apikeyIsValid() {
+    const url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
+    const contentType = 'contentType=json'
+    const city = 'beirut'
+    const apiKey = apiKeyElement.value;
+    const endpoint = `${url}${city}?key=${apiKey}&unitGroup=metric&${contentType}`
+
+    try {
+        const response = await fetch(endpoint);
+        console.log(response.ok)
+        if (response.ok) {
+            apiBlockElement.style.display = 'none'
+            afterAPIElement.style.display = 'block'
+        } else {
+            validateError(false, apiKeyElement)
+        }
+    } catch (error) {
+        console.log('what an error')
+        console.log(error.message)
     }
 
 }

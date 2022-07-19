@@ -7,7 +7,7 @@
   flex: 100%;
 }
 
-.is-invalid~.invalid-feedback {
+.is-invalid~.invalid-feedback{
   display: block;
 }
 
@@ -34,7 +34,7 @@
   font-weight: bold;
 }
 
-#secondPassenger {
+#secondPassenger, #afterAPI{
   display: none;
 }
 
@@ -42,6 +42,9 @@
   font-weight: bold;
 }
 
+#apiBlock {
+  display: block;
+}
 
 body {
   background-color: #FF3CAC;
