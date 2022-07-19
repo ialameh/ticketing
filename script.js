@@ -2,9 +2,11 @@ let errors = 0;
 const ticketingForm = document.getElementById('ticketingForm')
 const addPassenger = document.getElementById('addPassenger')
 const saveAPI = document.getElementById('saveAPI')
+const withoutWeather = document.getElementById('withoutWeather')
 const apiKeyElement = document.querySelector('#api')
 const afterAPIElement = document.getElementById('afterAPI')
 const apiBlockElement = document.querySelector('#apiBlock')
+
 function validateForm() {
 
     let emailValidation = /^[a-z0-9._%+-]{1,64}@[a-z0-9.-]{1,252}\.[a-z]{2,10}$/i;
@@ -24,13 +26,13 @@ function validateForm() {
     let departure = departureElement.value
     let departureTemperatureElement = document.querySelector('#departureTemperature')
     validateError(departure, departureElement)
-    if (departure) getWeather(departure, departureTemperatureElement)
+    if (departure && apiKeyElement.value !== 'NONE' ) getWeather(departure, departureTemperatureElement)
 
     let arrivalElement = document.querySelector('#arrival')
     let arrival = arrivalElement.value
     let arrivalTemperatureElement = document.querySelector('#arrivalTemperature')
     validateError(arrival, arrivalElement)
-    if (arrival) getWeather(arrival, arrivalTemperatureElement)
+    if (arrival && apiKeyElement.value !== 'NONE' ) getWeather(arrival, arrivalTemperatureElement)
 
 
 
@@ -114,6 +116,11 @@ addPassenger.addEventListener('click', (e) => {
     }
 })
 
+withoutWeather.addEventListener('click', (e)  =>  {
+    apiKeyElement.value = 'NONE'
+    apiBlockElement.style.display = 'none'
+    afterAPIElement.style.display = 'block'
+})
 
 function validateError(result, element) {
 
