@@ -6,6 +6,11 @@ const withoutWeather = document.getElementById('withoutWeather')
 const apiKeyElement = document.querySelector('#api')
 const afterAPIElement = document.getElementById('afterAPI')
 const apiBlockElement = document.querySelector('#apiBlock')
+const returnElement = document.querySelector('#returnDate')
+const roundtripElement = document.querySelector('#roundtrip')
+const preferenceElement = document.querySelector('#preference')
+const onewayElement = document.querySelector('#oneway')
+
 
 function validateForm() {
 
@@ -16,9 +21,6 @@ function validateForm() {
     // validateError(apiKey, apiKeyElement)
     // if (apiKey) afterAPIElement.style.display = 'block'
 
-    let onewayElement = document.querySelector('#oneway')
-    let roundtripElement = document.querySelector('#roundtrip')
-    let preferenceElement = document.querySelector('#preference')
     let awayIsChecked = (onewayElement.checked || roundtripElement.checked)
     validateError(awayIsChecked, preferenceElement)
 
@@ -40,7 +42,6 @@ function validateForm() {
     let travelDate = travelElement.value
     validateError(travelDate, travelElement)
 
-    let returnElement = document.querySelector('#returnDate')
     let returnDate = returnElement.value
     if (awayIsChecked && roundtripElement.checked) {
         validateError(returnDate, returnElement)
@@ -121,7 +122,12 @@ withoutWeather.addEventListener('click', (e)  =>  {
     apiBlockElement.style.display = 'none'
     afterAPIElement.style.display = 'block'
 })
-
+roundtripElement.addEventListener('click', (e)  =>  {
+validateForm()
+})
+onewayElement.addEventListener('click', (e)  =>  {
+    validateForm()
+    })
 function validateError(result, element) {
 
     result ? valid(element) : invalid(element)
